@@ -1,10 +1,7 @@
 package com.kundalik.todoapp.data
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import com.kundalik.todoapp.data.models.ToDoData
 
 @Dao
@@ -15,6 +12,12 @@ interface ToDoDao {
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertData(toDoData: ToDoData)
+
+    @Update
+    suspend fun updateData(toDoData: ToDoData)
+
+    @Delete
+    suspend fun deleteData(toDoData: ToDoData)
 
 
 }
