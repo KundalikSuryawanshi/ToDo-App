@@ -13,11 +13,11 @@ import com.kundalik.todoapp.data.models.Priority
 import com.kundalik.todoapp.data.models.ToDoData
 import com.kundalik.todoapp.listFragment.listFragmentDirections
 
-class ListAdapter: RecyclerView.Adapter<ListAdapter.MyViewHolder>() {
+class ListAdapter : RecyclerView.Adapter<ListAdapter.MyViewHolder>() {
 
     var dataList = emptyList<ToDoData>()
 
-    class MyViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) { }
+    class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {}
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.row_layout, parent, false)
@@ -26,37 +26,43 @@ class ListAdapter: RecyclerView.Adapter<ListAdapter.MyViewHolder>() {
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         holder.itemView.findViewById<TextView>(R.id.et_title).text = dataList[position].title
-        holder.itemView.findViewById<TextView>(R.id.et_description).text = dataList[position].Description
+        holder.itemView.findViewById<TextView>(R.id.et_description).text =
+            dataList[position].Description
         holder.itemView.findViewById<View>(R.id.row_background).setOnClickListener {
-            val action = listFragmentDirections.actionListFragmentToUpdateFragment(dataList[position])
+            val action =
+                listFragmentDirections.actionListFragmentToUpdateFragment(dataList[position])
             holder.itemView.findNavController().navigate(action)
         }
 
         when (dataList[position].priority) {
-            Priority.HIGH -> holder.itemView.findViewById<CardView>(R.id.priority_indicator).setCardBackgroundColor(
-                ContextCompat.getColor(
-                    holder.itemView.context,
-                    R.color.red
+            Priority.HIGH -> holder.itemView.findViewById<CardView>(R.id.priority_indicator)
+                .setCardBackgroundColor(
+                    ContextCompat.getColor(
+                        holder.itemView.context,
+                        R.color.red
+                    )
                 )
-            )
-            Priority.MEDIUM -> holder.itemView.findViewById<CardView>(R.id.priority_indicator).setCardBackgroundColor(
-                ContextCompat.getColor(
-                    holder.itemView.context,
-                    R.color.yellow
+            Priority.MEDIUM -> holder.itemView.findViewById<CardView>(R.id.priority_indicator)
+                .setCardBackgroundColor(
+                    ContextCompat.getColor(
+                        holder.itemView.context,
+                        R.color.yellow
+                    )
                 )
-            )
-            Priority.LOW -> holder.itemView.findViewById<CardView>(R.id.priority_indicator).setCardBackgroundColor(
-                ContextCompat.getColor(
-                    holder.itemView.context,
-                    R.color.green
+            Priority.LOW -> holder.itemView.findViewById<CardView>(R.id.priority_indicator)
+                .setCardBackgroundColor(
+                    ContextCompat.getColor(
+                        holder.itemView.context,
+                        R.color.green
+                    )
                 )
-            )
         }
     }
 
     override fun getItemCount(): Int {
         return dataList.size
     }
+
     fun setData(toDoData: List<ToDoData>) {
         this.dataList = toDoData
         notifyDataSetChanged()

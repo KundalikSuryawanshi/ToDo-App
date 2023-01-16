@@ -1,11 +1,11 @@
- package com.kundalik.todoapp
+package com.kundalik.todoapp
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupActionBarWithNavController
 
- class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -14,9 +14,9 @@ import androidx.navigation.ui.setupActionBarWithNavController
 
     }
 
-     override fun onSupportNavigateUp(): Boolean {
-         val navController = findNavController(R.id.navHostFragmemt)
-         return navController.navigateUp() || super.onNavigateUp()
-     }
+    override fun onSupportNavigateUp(): Boolean {
+        val navController = findNavController(R.id.navHostFragmemt)
+        return navController.navigateUp() || super.onNavigateUp()
+    }
 
- }
+}

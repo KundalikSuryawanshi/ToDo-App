@@ -1,6 +1,7 @@
 package com.kundalik.todoapp.data.reoporitory
 
 import androidx.lifecycle.LiveData
+import androidx.room.Query
 import com.kundalik.todoapp.data.ToDoDao
 import com.kundalik.todoapp.data.models.ToDoData
 
@@ -13,10 +14,14 @@ class ToDoRepository(private val toDoDao: ToDoDao) {
     }
 
     suspend fun updateData(toDoData: ToDoData) {
-       toDoDao.updateData(toDoData)
+        toDoDao.updateData(toDoData)
     }
 
-    suspend fun deleteData(toDoData: ToDoData) {
+    suspend fun deleteItem(toDoData: ToDoData) {
         toDoDao.deleteData(toDoData)
+    }
+
+    suspend fun deleteAll() {
+        toDoDao.deleteAll()
     }
 }

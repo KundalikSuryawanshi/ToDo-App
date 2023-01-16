@@ -74,7 +74,7 @@ class updateFragment : Fragment() {
 
         val builder = AlertDialog.Builder(requireContext())
         builder.setPositiveButton("Yes") { _,_ ->
-            mToDoViewModel.deleteData(args.currentitem)
+            mToDoViewModel.deleteItem(args.currentitem)
             Toast.makeText(requireContext(), "Successfully Removed: ${args.currentitem.title}", Toast.LENGTH_SHORT).show()
             //navigate back
             findNavController().navigate(R.id.action_updateFragment_to_listFragment)

@@ -10,7 +10,7 @@ import com.kundalik.todoapp.data.reoporitory.ToDoRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class ToDoViewModel(application: Application): AndroidViewModel(application) {
+class ToDoViewModel(application: Application) : AndroidViewModel(application) {
 
     private val toDoDao = ToDoDatabase.getDatabase(application).toDoDao()
     private val repository: ToDoRepository
@@ -21,19 +21,28 @@ class ToDoViewModel(application: Application): AndroidViewModel(application) {
         repository = ToDoRepository(toDoDao)
         gerAllData = repository.getAllData
     }
+
     fun insertData(toDoData: ToDoData) {
         viewModelScope.launch(Dispatchers.IO) {
             repository.insertData(toDoData)
         }
     }
+
     fun updateData(toDoData: ToDoData) {
         viewModelScope.launch(Dispatchers.IO) {
             repository.updateData(toDoData)
         }
     }
-    fun deleteData(toDoData: ToDoData) {
+
+    fun deleteItem(toDoData: ToDoData) {
         viewModelScope.launch(Dispatchers.IO) {
-            repository.deleteData(toDoData)
+            repository.deleteItem(toDoData)
+        }
+    }
+
+    fun deleteAll() {
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.deleteAll()
         }
     }
 }

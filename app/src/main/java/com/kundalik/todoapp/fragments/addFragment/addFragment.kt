@@ -1,19 +1,18 @@
 package com.kundalik.todoapp.addFragment
+
 import android.os.Bundle
-import android.text.TextUtils
 import android.view.*
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.kundalik.todoapp.R
-import com.kundalik.todoapp.data.models.Priority
 import com.kundalik.todoapp.data.models.ToDoData
 import com.kundalik.todoapp.data.viewmodel.ToDoViewModel
 import com.kundalik.todoapp.databinding.FragmentAddBinding
 import com.kundalik.todoapp.fragments.SharedViewModel
 
-class  addFragment : Fragment() {
+class addFragment : Fragment() {
     private lateinit var binding: FragmentAddBinding
     private val mToDoViewModel: ToDoViewModel by viewModels()
     private val mSharedViewModel: SharedViewModel by viewModels()
@@ -38,7 +37,7 @@ class  addFragment : Fragment() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.menu_add){
+        if (item.itemId == R.id.menu_add) {
             insertDataToDB()
         }
         return super.onOptionsItemSelected(item)
@@ -49,8 +48,8 @@ class  addFragment : Fragment() {
         val mPriority = binding.etPrioritySpinner.selectedItem.toString()
         val mDescription = binding.etDescription.text.toString()
 
-        val validation = mSharedViewModel.verifyDataFromUser(mTitle,mDescription)
-        if (validation){
+        val validation = mSharedViewModel.verifyDataFromUser(mTitle, mDescription)
+        if (validation) {
             val newData = ToDoData(
                 0,
                 mTitle,
@@ -61,8 +60,9 @@ class  addFragment : Fragment() {
             Toast.makeText(requireContext(), "Successfully Added!", Toast.LENGTH_SHORT).show()
             //navigate back
             findNavController().navigate(R.id.action_addFragment_to_listFragment)
-        } else{
-            Toast.makeText(requireContext(), "Please fill out all field.", Toast.LENGTH_SHORT).show()
+        } else {
+            Toast.makeText(requireContext(), "Please fill out all field.", Toast.LENGTH_SHORT)
+                .show()
         }
     }
 
