@@ -1,5 +1,6 @@
 package com.kundalik.todoapp.listFragment
 
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.os.Bundle
 import android.view.*
@@ -8,12 +9,19 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
 import com.kundalik.todoapp.R
+import com.kundalik.todoapp.data.models.ToDoData
 import com.kundalik.todoapp.data.viewmodel.ToDoViewModel
 import com.kundalik.todoapp.databinding.FragmentListBinding
 import com.kundalik.todoapp.fragments.SharedViewModel
-import com.kundalik.todoapp.fragments.listFragment.ListAdapter
+import com.kundalik.todoapp.fragments.listFragment.SwipeToDelete
+import com.kundalik.todoapp.fragments.listFragment.adapter.ListAdapter
+import jp.wasabeef.recyclerview.animators.LandingAnimator
+import jp.wasabeef.recyclerview.animators.SlideInUpAnimator
 
 class listFragment : Fragment() {
 
@@ -29,9 +37,7 @@ class listFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = FragmentListBinding.inflate(inflater, container, false)
 
-        val recyclerView = binding.recyclerView
-        recyclerView.adapter = adapter
-        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        setUpRecyclerView()
 
         mToDoViewModel.gerAllData.observe(viewLifecycleOwner, Observer { data ->
             mSharedViewModel.checkIfDatabaseEmpty(data)
@@ -50,6 +56,20 @@ class listFragment : Fragment() {
         return binding.root
     }
 
+    private fun setUpRecyclerView() {
+        val recyclerView = binding.recyclerView
+        recyclerView.adapter = adapter
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        //animation
+//        recyclerView.itemAnimator = LandingAnimator().apply{
+//            addDuration = 300
+//        }
+        recyclerView.itemAnimator = SlideInUpAnimator().apply {
+            addDuration = 300
+        }
+        swipeToDelete(recyclerView)
+    }
+
     private fun showEmptyDatabaseView(emptyDatabase: Boolean) {
         if(emptyDatabase){
             binding.tvNoData.visibility = View.VISIBLE
@@ -59,6 +79,36 @@ class listFragment : Fragment() {
             binding.ivNoData.visibility = View.INVISIBLE
         }
     }
+    //swipe to delete
+    private fun swipeToDelete(recyclerView: RecyclerView) {
+        val swipeToDeleteCallBack = object: SwipeToDelete(){
+            @SuppressLint("NotifyDataSetChanged")
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                val deletedItem = adapter.dataList[viewHolder.adapterPosition]
+                //delete item
+                mToDoViewModel.deleteItem(deletedItem)
+                adapter.notifyDataSetChanged()
+                //restore deleted item
+                restoreDeletedData(viewHolder.itemView, deletedItem, viewHolder.adapterPosition)
+            }
+        }
+        val itemTouchHelper = ItemTouchHelper(swipeToDeleteCallBack)
+        itemTouchHelper.attachToRecyclerView(recyclerView)
+    }
+    //restore the deleted data
+    @SuppressLint("NotifyDataSetChanged")
+    private fun restoreDeletedData(view: View, deletedItem: ToDoData, position:Int){
+        val snakBar = Snackbar.make(
+            view, "Deleted '${deletedItem.title}' ",
+            Snackbar.LENGTH_LONG
+        )
+        snakBar.setAction("Undo"){
+            mToDoViewModel.insertData(deletedItem)
+            adapter.notifyDataSetChanged()
+        }
+        snakBar.show()
+    }
+
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.list_fragment_menu, menu)
