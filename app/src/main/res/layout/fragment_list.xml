@@ -20,7 +20,8 @@
         android:tint="@color/white"
         android:focusable="true"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        android:contentDescription="TODO" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
@@ -29,30 +30,30 @@
         android:clipToPadding="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="parent" />
 
-<!--    <ImageView-->
-<!--        android:id="@+id/imageView"-->
-<!--        android:layout_width="165dp"-->
-<!--        android:layout_height="150dp"-->
-<!--        android:src="@drawable/ic_baseline_hourglass_empty_24"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="@+id/recyclerView"-->
-<!--        app:layout_constraintVertical_bias="0.499" />-->
+    <ImageView
+        android:id="@+id/iv_no_data"
+        android:layout_width="165dp"
+        android:layout_height="150dp"
+        android:src="@drawable/ic_baseline_hourglass_empty_24"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/recyclerView"
+        app:layout_constraintVertical_bias="0.499" />
 
-<!--    <TextView-->
-<!--        android:id="@+id/textView2"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginTop="22dp"-->
-<!--        android:text="No Data"-->
-<!--        app:layout_constraintEnd_toEndOf="@+id/imageView"-->
-<!--        app:layout_constraintStart_toStartOf="@+id/imageView"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/imageView" />-->
+    <TextView
+        android:id="@+id/tv_no_data"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="No Data"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@+id/iv_no_data"
+        app:layout_constraintStart_toStartOf="@+id/iv_no_data"
+        app:layout_constraintTop_toBottomOf="@+id/iv_no_data" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
