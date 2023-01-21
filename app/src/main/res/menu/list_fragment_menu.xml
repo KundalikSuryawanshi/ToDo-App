@@ -4,9 +4,10 @@
     <item
         android:id="@+id/menu_search"
         android:title="@string/search"
-        android:icon="@drawable/ic_baseline_search_24"
+        android:icon="@drawable/baseline_search"
         android:iconTint="@color/white"
-        app:showAsAction="ifRoom"/>
+        app:showAsAction="ifRoom"
+        app:actionViewClass="androidx.appcompat.widget.SearchView"/>
 
     <group android:checkableBehavior="single">
         <item
