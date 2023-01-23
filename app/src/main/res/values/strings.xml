@@ -15,6 +15,10 @@
 
     <string name="Yes">Yes</string>
     <string name="No">No</string>
+    <string name="no_data">No Data</string>
+    <string name="todo">TODO</string>
+    <string name="my_description">my description</string>
+    <string name="my_title">my title</string>
 
     <string-array name="priorities">
         <item>High Priority</item>
